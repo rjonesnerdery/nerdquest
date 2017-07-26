@@ -1,0 +1,8 @@
+{
+  "name": "base-build",
+  "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
