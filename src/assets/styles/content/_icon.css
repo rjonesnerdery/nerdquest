@@ -1,0 +1,31 @@
+/* ---------------------------------------------------------------------
+.icon - Icon SVG aspect ratios
+------------------------------------------------------------------------ */
+.icon {
+    position: relative; /* So inner elements can be positioned relative to this container */
+    display: block;
+    width: 100%;
+}
+
+.icon::before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-bottom: 100%; /* For aspect ratio. The default is 1:1 */
+}
+
+.icon_default::before {
+    padding-bottom: calc(100 / 100 * 100%); /* aspect ratio (height/width) */
+}
+
+.icon > svg {
+    fill: var(--COLOR_UI);
+}
+
+.icon-inner {
+    position: absolute; /* To move the icon into place on top of the placeholder that forces aspect ratio */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,25 @@
+/* ---------------------------------------------------------------------
+Utility Classes
+------------------------------------------------------------------------ */
+.u-isHidden {
+    @apply --isHidden;
+}
+
+
+.u-isHiddenM {
+    @apply --isNotHidden;
+    @media (--BP_M) {
+        @apply --isHidden;
+    }
+}
+
+.u-isHiddenL {
+    @apply --isNotHidden;
+    @media (--BP_L) {
+        @apply --isHidden;
+    }
+}
+
+.u-isVisuallyHidden {
+    @apply --isVisuallyHidden;
+}

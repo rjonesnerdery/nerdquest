@@ -1,0 +1,30 @@
+/* ---------------------------------------------------------------------
+.listV - vertical list
+------------------------------------------------------------------------ */
+:root {
+    --listV-SPACE: 4px;
+}
+
+/* Loop through space options
+Uses simple variables (postcss-simple-vars) and loops (postcss-for) from PostCSS */
+@for $i from 0 to 12 {
+    .listV_x$(i) > * + * {
+        margin-top: calc($i * var(--listV-SPACE));
+    }
+}
+
+@media (--BP_S) {
+    @for $i from 0 to 12 {
+        .listV_x$(i)S > * + * {
+            margin-top: calc($i * var(--listV-SPACE));
+        }
+    }
+}
+
+@media (--BP_M) {
+    @for $i from 0 to 12 {
+        .listV_x$(i)M > * + * {
+            margin-top: calc($i * var(--listV-SPACE));
+        }
+    }
+}

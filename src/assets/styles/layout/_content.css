@@ -1,0 +1,11 @@
+/* ---------------------------------------------------------------------
+.content - Adds buffer to page content blocks
+------------------------------------------------------------------------ */
+.content {}
+
+.content_buffer {
+    padding-top: 20px;
+    @media (--BP_M) {
+        padding-top: 50px;
+    }
+}

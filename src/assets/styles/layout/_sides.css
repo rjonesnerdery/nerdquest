@@ -1,0 +1,33 @@
+/* ---------------------------------------------------------------------
+.sides - Adds space on the sides of containers
+------------------------------------------------------------------------ */
+:root {
+    --sides-SPACE: 10px;
+}
+
+/* Loop through space options
+Uses simple variables (postcss-simple-vars) and loops (postcss-for) from PostCSS */
+@for $i from 0 to 15 {
+    .sides_x$(i) {
+        padding-right: calc($i * var(--sides-SPACE));
+        padding-left: calc($i * var(--sides-SPACE));
+    }
+}
+
+@media (--BP_S) {
+    @for $i from 0 to 15 {
+        .sides_x$(i)S {
+            padding-right: calc($i * var(--sides-SPACE));
+            padding-left: calc($i * var(--sides-SPACE));
+        }
+    }
+}
+
+@media (--BP_M) {
+    @for $i from 0 to 15 {
+        .sides_x$(i)M {
+            padding-right: calc($i * var(--sides-SPACE));
+            padding-left: calc($i * var(--sides-SPACE));
+        }
+    }
+}

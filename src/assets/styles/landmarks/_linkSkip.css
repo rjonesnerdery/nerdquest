@@ -1,0 +1,22 @@
+/* ---------------------------------------------------------------------
+ .linkSkip - Skip link
+------------------------------------------------------------------------ */
+.linkSkip {
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid var(--COLOR_UI);
+    background-color: #ffffff;
+    position: absolute;
+    top: -100px;
+    font-size: calc(12 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size) */
+    text-align: center;
+    transition: all 250ms;
+}
+
+
+/* ---- States ---- */
+.linkSkip:focus {
+    top: 0;
+    z-index: 100;
+    border-color: var(--COLOR_BRAND);
+}

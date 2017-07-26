@@ -1,0 +1,76 @@
+/*----------------------------------------------------------------------------
+.grid - Standard grid
+----------------------------------------------------------------------------*/
+:root {
+    --grid-GUTTER: 10px;
+}
+
+.grid {
+    display: block; /* IE9 fallback for Flex */
+    display: flex; /* Using Flex for equal height containers */
+    flex-wrap: wrap; /* Children wrap for stacked variations, like most mobile styles */
+    align-items: stretch; /* For equal height */
+    font-size: 0; /* Horiontal gap fix for inline-block fallback */
+}
+
+.grid-col {
+    box-sizing: border-box; /* Using box-sizing so padding doesn't affect width */
+    display: inline-block; /* IE9 fallback */
+    width: 100%;
+    vertical-align: top;
+    font-size: calc(16 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size), Resetting font-size for horizontal gap fix */
+}
+
+
+/* Loop through layout options
+Uses simple variables (postcss-simple-vars) and loops (postcss-for) from PostCSS */
+@for $i from 0 to 12 {
+    .grid-col_$(i)of12 {
+        width: calc($i / 12 * 100%);
+    }
+}
+
+@media (--BP_S) {
+    @for $i from 0 to 12 {
+        .grid-col_$(i)of12S {
+            width: calc($i / 12 * 100%);
+        }
+    }
+}
+
+@media (--BP_M) {
+    @for $i from 0 to 12 {
+        .grid-col_$(i)of12M {
+            width: calc($i / 12 * 100%);
+        }
+    }
+}
+
+@media (--BP_L) {
+    @for $i from 0 to 12 {
+        .grid-col_$(i)of12L {
+            width: calc($i / 12 * 100%);
+        }
+    }
+}
+
+
+/* ---- Mixins ---- */
+
+.mix-grid_space {
+    margin-top: -var(--grid-GUTTER);
+    margin-left: -var(--grid-GUTTER);
+    @media (--BP_M) {
+        margin-top: calc(-var(--grid-GUTTER) * 2);
+        margin-left: calc(-var(--grid-GUTTER) * 2);
+    }
+}
+
+.mix-grid_space > * {
+    padding-top: var(--grid-GUTTER);
+    padding-left: var(--grid-GUTTER);
+    @media (--BP_M) {
+        padding-top: calc(var(--grid-GUTTER) * 2);
+        padding-left: calc(var(--grid-GUTTER) * 2);
+    }
+}

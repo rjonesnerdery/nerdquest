@@ -1,0 +1,39 @@
+/* ---------------------------------------------------------------------
+.listH - Horizontal list
+------------------------------------------------------------------------ */
+:root {
+    --listH-SPACE: 4px;
+}
+
+.listH {
+    font-size: 0; /* Horiontal gap fix for inline-block */
+}
+
+.listH > * {
+    display: inline-block;
+    font-size: calc(16 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size), Resetting font-size for horizontal gap fix */
+}
+
+/* Loop through space options
+Uses simple variables (postcss-simple-vars) and loops (postcss-for) from PostCSS */
+@for $i from 0 to 12 {
+    .listH_x$(i) > * + * {
+                       padding-left: calc($i * var(--listH-SPACE));
+                   }
+}
+
+@media (--BP_S) {
+    @for $i from 0 to 12 {
+        .listH_x$(i)S > * + * {
+                        padding-left: calc($i * var(--listH-SPACE));
+                    }
+    }
+}
+
+@media (--BP_M) {
+    @for $i from 0 to 12 {
+        .listH_x$(i)M > * + * {
+                        padding-left: calc($i * var(--listH-SPACE));
+                    }
+    }
+}

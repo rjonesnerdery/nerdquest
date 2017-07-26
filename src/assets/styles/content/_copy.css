@@ -1,0 +1,14 @@
+/* ---------------------------------------------------------------------
+.copy - Standard blocks of text copy
+------------------------------------------------------------------------ */
+.copy {
+    color: var(--COLOR_TEXT);
+    font-size: calc(16 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size) */
+    line-height: calc(26 / 16); /* Converts pixel to relative unit (line height/font size) */
+}
+
+.copy_secondary {
+    font-family: var(--FONT_SECONDARY);
+    font-size: calc(18 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size) */
+    line-height: calc(28 / 18); /* Converts pixel to relative unit (line height/font size) */
+}

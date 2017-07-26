@@ -1,0 +1,24 @@
+/* ---------------------------------------------------------------------
+ Elements Styles
+------------------------------------------------------------------------ */
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    font-family: var(--FONT_PRIMARY);
+    font-size: var(--FONT_BASE_SIZE);
+    line-height: 1;
+    color: var(--COLOR_TEXT);
+}
+
+@media print {
+    body {
+        color: #000000 !important;
+    }
+}
+
+a[href^="tel:"]:focus {
+    text-decoration: underline;
+}

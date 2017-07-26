@@ -1,0 +1,14 @@
+/* ---------------------------------------------------------------------
+ .site - Main site layout
+------------------------------------------------------------------------ */
+.site {
+    min-width: var(--SITE_MIN_WIDTH);
+    max-width: var(--SITE_MAX_WIDTH);
+    margin: 0 auto;
+}
+
+.site-hd { }
+
+.site-bd { }
+
+.site-ft { }

@@ -1,0 +1,38 @@
+/* ---------------------------------------------------------------------
+ Text utilities
+--------------------------------------------------------------------- */
+.u-xSmall {
+    font-size: 10px;
+}
+
+.u-small {
+    font-size: 12px;
+}
+
+.u-center {
+    text-align: center;
+}
+
+.u-left {
+    text-align: left;
+}
+
+.u-right {
+    text-align: right;
+}
+
+.u-caps {
+    text-transform: uppercase;
+}
+
+.u-bold {
+    font-weight: var(--FONT_BOLD_WEIGHT);
+}
+
+.u-italic {
+    font-style: italic;
+}
+
+.u-underline {
+    text-decoration: underline;
+}
