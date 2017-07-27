@@ -13,22 +13,46 @@
 Uses simple variables (postcss-simple-vars) and loops (postcss-for) from PostCSS */
 @for $i from 0 to 10 {
     .vr_x$(i) {
-        padding-bottom: calc($i * var(--vr-SPACE));
-    }
+    padding-bottom: calc($i * var(--vr-SPACE));
+}
 }
 
 @media (--BP_S) {
     @for $i from 0 to 10 {
         .vr_x$(i)S {
-            padding-bottom: calc($i * var(--vr-SPACE));
-        }
+                     padding-bottom: calc($i * var(--vr-SPACE));
+                 }
     }
 }
 
 @media (--BP_M) {
     @for $i from 0 to 10 {
         .vr_x$(i)M {
-            padding-bottom: calc($i * var(--vr-SPACE));
-        }
+                     padding-bottom: calc($i * var(--vr-SPACE));
+                 }
+    }
+}
+
+/* ---- Inverse --- */
+
+@for $i from 0 to 10 {
+    .vr_x$(i)_inverse {
+                 padding-top: calc($i * var(--vr-SPACE));
+             }
+}
+
+@media (--BP_S) {
+    @for $i from 0 to 10 {
+        .vr_x$(i)S_inverse {
+                     padding-top: calc($i * var(--vr-SPACE));
+                 }
+    }
+}
+
+@media (--BP_M) {
+    @for $i from 0 to 10 {
+        .vr_x$(i)M_inverse {
+                     padding-top: calc($i * var(--vr-SPACE));
+                 }
     }
 }

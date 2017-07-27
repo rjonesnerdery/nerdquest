@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import DefaultView from './views/DefaultView';
+import Controller from './controllers/Controller';
 
 /**
  * Application setup
@@ -22,7 +22,7 @@ export default class App {
      * @method init
      */
     init() {
-        this._defaultView = new DefaultView('.js-default');
+        this._controller = new Controller();
     }
 
 }

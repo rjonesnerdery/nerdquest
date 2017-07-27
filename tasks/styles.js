@@ -13,6 +13,7 @@ import discardComments from 'postcss-discard-comments';
 import gulp from 'gulp';
 import gulpIf from 'gulp-if';
 import postcss from 'gulp-postcss';
+import postcssFor from 'postcss-for';
 import sourcemaps from 'gulp-sourcemaps';
 import notify from './notify';
 
@@ -20,6 +21,7 @@ const processors = [
     atImport,
     discardComments,
     apply,
+    postcssFor,
     cssnext,
 ];
 
