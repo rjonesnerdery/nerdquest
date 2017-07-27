@@ -1,0 +1,10 @@
+
+
+.input {
+    border: none;
+}
+
+
+.input:disabled {
+    background-color: gray;
+}

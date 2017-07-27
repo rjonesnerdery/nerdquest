@@ -31,6 +31,8 @@ export default class ActionView {
         this.badges = [];
 
         this.$view = $(SELECTORS.VIEW);
+        this.disabled = '';
+
 
         this.init();
     }
@@ -185,9 +187,11 @@ export default class ActionView {
             this.controller.useItem($target.data('itemId'));
         }
 
-        console.log(`You used ${$target.data('itemName')} ${itemTarget}`);
+        console.log(`You used ${$target.data('itemName')} ${itemTarget} :: ${new Date()}`);
 
         this.render();
+
+
 
         return this;
     }
@@ -209,7 +213,7 @@ export default class ActionView {
         if (this.effects) {
             _.forEach(this.effects, (value, key) => {
                 count++;
-                list += `<li>${value}</li>`;
+                list += `<li class="u-color-dim">${value}</li>`;
             });
             list += `</ul>`;
 
@@ -224,14 +228,15 @@ export default class ActionView {
         if (this.items) {
             _.forEach(this.items, (value, key) => {
                 count++;
-                list += '<div class="vr vr_x5_inverse"><ul>';
-                list += `<li class="u-tiny">${key}</li>`;
-                list += `<li>${value.Name} (R${value.Rarity})</li>`;
-                list += `<li>${value.Description}</li>`;
-                list += `</ul>
-                        <input id="" type="text" name="" class="js-actionView-items-btnTarget" data-item-id="${key}">
-                        <button type="button" class="js-actionView-items-btn" data-item-id="${key}" data-item-name="${value.Name}">Use Item</button>
-                    </div>`;
+                list = `<div class="vr vr_x5_inverse">
+                            <ul>
+                                <li><span class="rarity rarity_${value.Rarity}"></span> ${value.Name}</li>
+                                <li class="u-small u-color-dim">${value.Description}</li>
+                            </ul>
+                            <input id="" type="text" name="" class="input js-actionView-items-btnTarget" data-item-id="${key}" style="width: 60px;" ${this.controller.disabled}>
+                            <button type="button" class="js-actionView-items-btn" data-item-id="${key}" data-item-name="${value.Name}" ${this.controller.disabled}>Use Item</button>
+                        </div>
+                        ${list}`;
 
             });
             this.$itemList.html(list);
@@ -245,12 +250,17 @@ export default class ActionView {
         if (this.badges) {
             _.forEach(this.badges, (value, key) => {
                 count++;
-                list += `<li>${value.BadgeName}</li>`;
+                list += `<li class="u-color-dim">${value.BadgeName}</li>`;
             });
             list += `</ul>`;
 
             this.$badgeList.html(list);
             this.$badgeCount.text(count)
         }
+    }
+
+    setDelay() {
+        this.clickTime = new Date();
+
     }
 }

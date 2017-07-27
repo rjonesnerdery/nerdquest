@@ -2,21 +2,29 @@
 .hdg - Standard headings that aren't part of other components
 ------------------------------------------------------------------------ */
 .hdg {
-    font-size: calc(32 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size) */
-    line-height: calc(38 / 32); /* Converts pixel to relative unit (line height/font size) */
+    line-height: 1.2;
+
+}
+
+.hdg_1 {
+    font-size: 64px;
+    color: #0f7a6b;
 }
 
 .hdg_2 {
-    font-size: calc(26 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size) */
-    line-height: calc(32 / 26); /* Converts pixel to relative unit (line height/font size) */
+    font-size: 26px;
 }
 
 .hdg_3 {
-    font-size: calc(21 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size) */
-    line-height: calc(25 / 21); /* Converts pixel to relative unit (line height/font size) */
+    font-size: 21px;
 }
 
 .hdg_4 {
-    font-size: calc(22 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size) */
-    line-height: calc(27 / 22); /* Converts pixel to relative unit (line height/font size) */
+    font-size: 18px;
+}
+
+.mix-hdg_wild {
+    font-size: 52px;
+    line-height: 1;
+    color: rgba(221, 52, 9, 1);
 }

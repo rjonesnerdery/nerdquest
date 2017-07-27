@@ -12,8 +12,9 @@ export default class Controller {
      * Construct the view and run initialization
      *
      */
-    constructor() {
+    constructor(firebase) {
         this.isEnabled = false;
+        this.disabled = '';
 
         this.init();
     }
@@ -58,7 +59,7 @@ export default class Controller {
 
         this.isEnabled = true;
 
-        //this.postLoop();
+        this.postLoop();
 
         return this;
     }
@@ -120,8 +121,15 @@ export default class Controller {
         let url = `${CONFIG.URL_BASE}${CONFIG.URL_ITEM}/${id}`;
         url = target ? `${url}?target=${target}` : url;
         console.log(url);
-        this.model.postData(url);
-        this.model.removeItem(id);
+        this.model.postData(url, id);
         return this;
+    }
+
+    clickTimeout() {
+        setTimeout(() => {
+            this.disabled = '';
+            this.updateView();
+            return this;
+        }, 60 * 1000); //wait 60 seconds
     }
 }

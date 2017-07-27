@@ -22,7 +22,8 @@ export default class App {
      * @method init
      */
     init() {
-        this._controller = new Controller();
+
+        this._controller = new Controller(this._firebase);
     }
 
 }

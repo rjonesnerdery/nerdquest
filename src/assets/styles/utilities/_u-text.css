@@ -13,6 +13,18 @@
     font-size: 8px;
 }
 
+.u-medium {
+    font-size: 14px;
+}
+
+.u-normal {
+    font-size: 16px;
+}
+
+.u-valign {
+    vertical-align: text-bottom;
+}
+
 .u-center {
     text-align: center;
 }
@@ -39,4 +51,16 @@
 
 .u-underline {
     text-decoration: underline;
+}
+
+.u-color-dim {
+    color: rgba(255,255,255,0.6);
+}
+
+.u-textShadow {
+    text-shadow: 2px 2px 0 #0c3e3d;
+}
+
+.u-textShadow2 {
+    text-shadow: 2px 2px 0 #623031;
 }

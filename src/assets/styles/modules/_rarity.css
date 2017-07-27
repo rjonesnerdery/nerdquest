@@ -1,0 +1,26 @@
+/* ---------------------------------------------------------------------
+.shieldBox
+------------------------------------------------------------------------ */
+.rarity {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: black;
+}
+
+.rarity_1 { }
+
+.rarity_2 {
+    background-color: gray;
+}
+.rarity_3 {
+    background-color: yellow;
+}
+.rarity_4 {
+    background-color: #ff8900;
+}
+.rarity_5 {
+    background-color: red;
+}

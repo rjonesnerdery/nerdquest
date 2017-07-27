@@ -5,5 +5,9 @@ export const CONFIG = {
     COOKIE: 'NerdQuestItems',
     TARGET: '?target=',
     API_KEY: '',
-    REFRESH_SPEED: 1800
+    REFRESH_SPEED: 1500
+};
+
+export const FIREBASE_CONFIG = {
+
 };

@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import 'jquery.cookie';
-import { CONFIG } from '../config';
+import { CONFIG,FIREBASE_CONFIG  } from '../config';
+import firebase from 'firebase';
 
 /**
  * ItemsModel
@@ -17,17 +18,19 @@ export default class ItemsModel {
         this.items = {};
         this.badges = {};
 
+        firebase.initializeApp(FIREBASE_CONFIG);
+        this._firebase = firebase.database();
+
         this.init();
     }
 
     init() {
-        this.updateItems();
-        console.log(this.items);
+        this.loadData();
 
         return this;
     }
 
-    async postData(url) {
+    async postData(url, id) {
         $.ajax({
             url: url,
             type:"POST",
@@ -44,15 +47,20 @@ export default class ItemsModel {
                 return false;
             },
             success: (response) => {
-                this.handleResponse(response);
+                this.handleResponse(response, id);
             }
         });
     }
 
-    handleResponse(response) {
+    handleResponse(response, id) {
         console.log(response);
         if (response.Item) {
             this.addItem(response.Item);
+        }
+        if (response.TargetName) {
+            this.removeItem(id);
+            this.controller.disabled = 'disabled';
+            this.controller.clickTimeout();
         }
         if (JSON.stringify(response.Effects) !== JSON.stringify(this.response.Effects)
             || JSON.stringify(response.Badges) !== JSON.stringify(this.response.Badges) ) {
@@ -68,7 +76,6 @@ export default class ItemsModel {
     }
 
     addItem(item) {
-        const date = Date.now();
         const newItem = {
             [item.Id]: {
                 'Name': item.Name,
@@ -76,10 +83,11 @@ export default class ItemsModel {
                 'Description': item.Description,
             }
         };
-        this.updateItems();
-        _.assign(this.items, newItem);
-        this.setItemsInCookie(this.items);
-        console.log(`Item Added: ${item.Name}`);
+        if (this.items) {
+            _.assign(this.items, newItem);
+            firebase.database().ref().set(this.items);
+            console.log(`Item Added: ${item.Name}`);
+        }
         this.controller.updateView();
         return this;
     }
@@ -88,7 +96,9 @@ export default class ItemsModel {
         this.items = _.pickBy(this.items, (value, key) => {
             return key !== id;
         });
-        this.setItemsInCookie(this.items);
+        if (this.items) {
+            firebase.database().ref().set(this.items);
+        }
         this.controller.updateView();
         return this;
     }
@@ -100,26 +110,18 @@ export default class ItemsModel {
         return this;
     }
 
-    updateItems() {
-        this.items = this.getItemsFromCookie();
-        return this;
-    }
-
-    getItemsFromCookie() {
-        if ($.cookie(CONFIG.COOKIE)) {
-            return JSON.parse($.cookie(CONFIG.COOKIE))
-        } else {
-            return {};
-        }
-    }
-
-    setItemsInCookie(data) {
-        $.cookie(CONFIG.COOKIE, JSON.stringify(data));
-        return this;
+    loadData() {
+        const ref = firebase.database().ref();
+        ref.once("value", (snapshot) => {
+            this.items = snapshot.val();
+            this.controller.updateView();
+            return this;
+        }, (error) => {
+            console.log("Firebase Get Error: " + error.code);
+        });
     }
 
     count() {
-        this.updateItems();
         let i = 0;
         _.forEach(this.items, () => {
             i++;
