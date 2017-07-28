@@ -30,10 +30,33 @@ export default class ItemsModel {
         return this;
     }
 
+    /*async postData(url, id) {
+     return $.ajax({
+     url: url,
+     type:"POST",
+     crossDomain: true,
+     headers: {
+     'apikey': CONFIG.API_KEY,
+     'access-control-allow-origin': CONFIG.URL_BASE,
+     'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+     'access-control-allow-headers': 'content-type, accept',
+     'access-control-max-age': 10, // Seconds
+     },
+     error: () => {
+     console.log('error');
+     },
+     success: (response) => {
+     this.handleResponse(response, id);
+     }
+     });
+
+     }*/
+
     async postData(url, id) {
+        const deferred = $.Deferred();
         $.ajax({
             url: url,
-            type:"POST",
+            type: "POST",
             crossDomain: true,
             headers: {
                 'apikey': CONFIG.API_KEY,
@@ -41,15 +64,15 @@ export default class ItemsModel {
                 'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
                 'access-control-allow-headers': 'content-type, accept',
                 'access-control-max-age': 10, // Seconds
-            },
-            error: () => {
-                console.log('error');
-                return false;
-            },
-            success: (response) => {
-                this.handleResponse(response, id);
             }
+        }).done((response) => {
+            this.handleResponse(response, id);
+            deferred.resolve(response);
+        }).fail((response) => {
+            console.log(`Error: ${response}`);
         });
+
+        return deferred;
     }
 
     handleResponse(response, id) {
@@ -71,6 +94,10 @@ export default class ItemsModel {
         if (response.Points !== this.response.Points) {
             this.controller.updatePoints(response.Points);
         }
+        if (id) {
+            this.controller.postURL = this.controller.defaultPostURL;
+            this.controller.itemId = '';
+        }
         this.response = response;
         return this;
     }
@@ -83,11 +110,9 @@ export default class ItemsModel {
                 'Description': item.Description,
             }
         };
-        if (this.items) {
-            _.assign(this.items, newItem);
-            firebase.database().ref().set(this.items);
-            console.log(`Item Added: ${item.Name}`);
-        }
+        _.assign(this.items, newItem);
+        firebase.database().ref().update(newItem);
+        console.log(`Item Added: ${item.Name}`);
         this.controller.updateView();
         return this;
     }
@@ -96,9 +121,7 @@ export default class ItemsModel {
         this.items = _.pickBy(this.items, (value, key) => {
             return key !== id;
         });
-        if (this.items) {
-            firebase.database().ref().set(this.items);
-        }
+        firebase.database().ref().child(id).set(null);
         this.controller.updateView();
         return this;
     }

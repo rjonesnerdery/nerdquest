@@ -171,7 +171,7 @@ export default class ActionView {
 
     /**
      * Handles click event
-     * 
+     *
      * @param event
      * @returns {ActionView}
      */
@@ -190,8 +190,6 @@ export default class ActionView {
         console.log(`You used ${$target.data('itemName')} ${itemTarget} :: ${new Date()}`);
 
         this.render();
-
-
 
         return this;
     }
@@ -234,7 +232,7 @@ export default class ActionView {
                                 <li class="u-small u-color-dim">${value.Description}</li>
                             </ul>
                             <input id="" type="text" name="" class="input js-actionView-items-btnTarget" data-item-id="${key}" style="width: 60px;" ${this.controller.disabled}>
-                            <button type="button" class="js-actionView-items-btn" data-item-id="${key}" data-item-name="${value.Name}" ${this.controller.disabled}>Use Item</button>
+                            <button type="button" class="js-actionView-items-btn" data-item-id="${key}" data-item-name="${value.Name}" ${this.controller.disabled}>Use</button>
                         </div>
                         ${list}`;
 

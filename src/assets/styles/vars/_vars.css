@@ -28,7 +28,7 @@ Global Variables
 
     /* ---- Font Properties ---- */
     --FONT_PRIMARY: 'vcr', Arial, sans-serif;
-    --FONT_SECONDARY: Garamond, serif;
+    --FONT_SECONDARY: 'pixelmix', Arial, sans-serif;
     --FONT_BASE_SIZE: 16px;
     --FONT_BOLD_WEIGHT: 700;
 

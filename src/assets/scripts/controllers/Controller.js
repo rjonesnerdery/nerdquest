@@ -15,6 +15,9 @@ export default class Controller {
     constructor(firebase) {
         this.isEnabled = false;
         this.disabled = '';
+        this.defaultPostURL = `${CONFIG.URL_BASE}${CONFIG.URL_POINTS}`;
+        this.postURL = this.defaultPostURL;
+        this.itemId = '';
 
         this.init();
     }
@@ -26,7 +29,7 @@ export default class Controller {
      */
     init() {
         return this.createChildren()
-                   .enable();
+            .enable();
     }
 
 
@@ -96,13 +99,15 @@ export default class Controller {
         return this;
     }
 
-    async postLoop() {
+    postLoop() {
         if (this.isEnabled) {
-            this.model.postData(`${CONFIG.URL_BASE}${CONFIG.URL_POINTS}`);
+            const request = this.model.postData(this.postURL, this.itemId);
 
-            await delay(CONFIG.REFRESH_SPEED);
-
-            this.postLoop();
+            request.then(() => {
+                setTimeout(() =>{
+                    this.postLoop();
+                }, CONFIG.REFRESH_SPEED);
+            });
         }
     }
 
@@ -121,7 +126,8 @@ export default class Controller {
         let url = `${CONFIG.URL_BASE}${CONFIG.URL_ITEM}/${id}`;
         url = target ? `${url}?target=${target}` : url;
         console.log(url);
-        this.model.postData(url, id);
+        this.postURL = url;
+        this.itemId = id;
         return this;
     }
 

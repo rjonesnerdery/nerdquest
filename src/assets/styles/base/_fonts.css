@@ -10,10 +10,10 @@
 
 @font-face {
     font-family: 'pixelmix';
-    src: url('pixelmix-webfont.woff2') format('woff2'),
-    url('pixelmix-webfont.woff') format('woff'),
-    url('pixelmix-webfont.ttf') format('truetype'),
-    url('pixelmix-webfont.svg#pixelmixregular') format('svg');
+    src: url('/assets/media/fonts/pixelmix-webfont.woff2') format('woff2'),
+    url('/assets/media/fonts/pixelmix-webfont.woff') format('woff'),
+    url('/assets/media/fonts/pixelmix-webfont.ttf') format('truetype'),
+    url('/assets/media/fonts/pixelmix-webfont.svg#pixelmixregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
