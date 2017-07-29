@@ -30,28 +30,6 @@ export default class ItemsModel {
         return this;
     }
 
-    /*async postData(url, id) {
-        return $.ajax({
-            url: url,
-            type:"POST",
-            crossDomain: true,
-            headers: {
-                'apikey': CONFIG.API_KEY,
-                'access-control-allow-origin': CONFIG.URL_BASE,
-                'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
-                'access-control-allow-headers': 'content-type, accept',
-                'access-control-max-age': 10, // Seconds
-            },
-            error: () => {
-                console.log('error');
-            },
-            success: (response) => {
-                this.handleResponse(response, id);
-            }
-        });
-
-    }*/
-
     async postData(url, id) {
         const deferred = $.Deferred();
         $.ajax({

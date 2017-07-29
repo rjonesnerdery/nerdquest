@@ -171,7 +171,7 @@ export default class ActionView {
 
     /**
      * Handles click event
-     * 
+     *
      * @param event
      * @returns {ActionView}
      */

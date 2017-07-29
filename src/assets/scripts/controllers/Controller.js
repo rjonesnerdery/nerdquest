@@ -31,7 +31,7 @@ export default class Controller {
      */
     init() {
         return this.createChildren()
-                   .enable();
+            .enable();
     }
 
 
