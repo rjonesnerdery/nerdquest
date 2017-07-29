@@ -12,9 +12,14 @@ export default class Controller {
      * Construct the view and run initialization
      *
      */
-    constructor(firebase) {
+    constructor($element, firebase) {
+        this.$element = $element;
         this.isEnabled = false;
+        this.isLoop = true;
         this.disabled = '';
+        this.defaultPostURL = `${CONFIG.URL_BASE}${CONFIG.URL_POINTS}`;
+        this.postURL = this.defaultPostURL;
+        this.itemId = '';
 
         this.init();
     }
@@ -41,6 +46,11 @@ export default class Controller {
         this.model = new ItemsModel(this);
         this.view = new ActionView(this);
 
+        if (this.$element.data('loop') === false) {
+            console.log('loop disabled');
+            this.isLoop = false;
+        }
+
         return this;
     }
 
@@ -59,7 +69,7 @@ export default class Controller {
 
         this.isEnabled = true;
 
-        this.postLoop();
+        if (this.isLoop) { this.postLoop(); }
 
         return this;
     }
@@ -96,13 +106,23 @@ export default class Controller {
         return this;
     }
 
-    async postLoop() {
+    post() {
+        const request = this.model.postData(this.postURL, this.itemId);
+
+        request.then(() => {
+            if (this.isLoop) {
+                this.postLoop();
+            } else {
+                return this;
+            }
+        });
+    }
+
+    postLoop() {
         if (this.isEnabled) {
-            this.model.postData(`${CONFIG.URL_BASE}${CONFIG.URL_POINTS}`);
-
-            await delay(CONFIG.REFRESH_SPEED);
-
-            this.postLoop();
+            setTimeout(() =>{
+                this.post();
+            }, CONFIG.REFRESH_SPEED);
         }
     }
 
@@ -121,7 +141,9 @@ export default class Controller {
         let url = `${CONFIG.URL_BASE}${CONFIG.URL_ITEM}/${id}`;
         url = target ? `${url}?target=${target}` : url;
         console.log(url);
-        this.model.postData(url, id);
+        this.postURL = url;
+        this.itemId = id;
+        if (!this.isLoop) { this.post(); }
         return this;
     }
 

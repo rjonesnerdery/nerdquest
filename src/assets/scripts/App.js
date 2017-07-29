@@ -23,7 +23,7 @@ export default class App {
      */
     init() {
 
-        this._controller = new Controller(this._firebase);
+        this._controller = new Controller($('.js-app'), this._firebase);
     }
 
 }
