@@ -1,8 +1,7 @@
 import $ from 'jquery';
-import ItemsModel from '../models/ItemsModel'
-import ActionView from '../views/ActionView'
+import ItemsModel from '../models/ItemsModel';
+import ActionView from '../views/ActionView';
 import { CONFIG } from '../config';
-import { delay, postData } from '../util/util';
 
 /**
  * @fileOverview View handles updating the visual elements on the page
@@ -12,7 +11,12 @@ export default class Controller {
      * Construct the view and run initialization
      *
      */
-    constructor($element, firebase) {
+    constructor($element) {
+        // If view element isn't on the page
+        if (!$element.length) {
+            return;
+        }
+
         this.$element = $element;
         this.isEnabled = false;
         this.isLoop = true;

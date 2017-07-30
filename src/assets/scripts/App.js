@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Controller from './controllers/Controller';
+import Reindex from './views/Reindex';
 
 /**
  * Application setup
@@ -22,8 +23,8 @@ export default class App {
      * @method init
      */
     init() {
-
-        this._controller = new Controller($('.js-app'), this._firebase);
+        this._controller = new Controller($('.js-app'));
+        this._reindex = new Reindex($('.js-reindex'));
     }
 
 }

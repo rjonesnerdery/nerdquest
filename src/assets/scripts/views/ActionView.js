@@ -228,11 +228,11 @@ export default class ActionView {
                 count++;
                 list = `<div class="vr vr_x5_inverse">
                             <ul>
-                                <li><span class="rarity rarity_${value.Rarity}"></span> ${value.Name}</li>
+                                <li><span class="rarity rarity_${value.Rarity}"></span> ${key} x${value.Id.length}</li>
                                 <li class="u-small u-color-dim">${value.Description}</li>
                             </ul>
-                            <input id="" type="text" name="" class="input js-actionView-items-btnTarget" data-item-id="${key}" style="width: 60px;" ${this.controller.disabled}>
-                            <button type="button" class="js-actionView-items-btn" data-item-id="${key}" data-item-name="${value.Name}" ${this.controller.disabled}>Use</button>
+                            <input id="" type="text" name="" class="input js-actionView-items-btnTarget" data-item-id="${value.Id[0]}" style="width: 60px;" ${this.controller.disabled}>
+                            <button type="button" class="js-actionView-items-btn" data-item-id="${value.Id[0]}" data-item-name="${key}" ${this.controller.disabled}>Use</button>
                         </div>
                         ${list}`;
 
