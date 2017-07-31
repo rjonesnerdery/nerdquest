@@ -1,5 +1,7 @@
 import $ from 'jquery';
 import _ from 'lodash';
+import { CONFIG } from '../config';
+import { ITEM_TYPE } from '../data/ItemType';
 
 const SELECTORS = {
     VIEW: '.js-actionView',
@@ -32,7 +34,6 @@ export default class ActionView {
 
         this.$view = $(SELECTORS.VIEW);
         this.disabled = '';
-
 
         this.init();
     }
@@ -80,7 +81,6 @@ export default class ActionView {
         this.$badgeList = this.$view.find(SELECTORS.BADGE_LIST);
         this.$badgeCount = this.$view.find(SELECTORS.BADGE_COUNT);
 
-
         return this;
     }
 
@@ -109,6 +109,7 @@ export default class ActionView {
         this.disable();
         this.layout();
         this.enable();
+        return this;
     }
 
     /**
@@ -199,10 +200,12 @@ export default class ActionView {
         this.items = items;
         this.badges = badges;
         this.render();
+        return this;
     }
 
     updatePoints(points) {
         this.$points.text(points);
+        return this;
     }
 
     listEffects() {
@@ -218,28 +221,40 @@ export default class ActionView {
             this.$effectList.html(list);
             this.$effectCount.text(count);
         }
+        return this;
     }
 
     listItems() {
         let list = '';
-        let count = 0;
-        if (this.items) {
-            _.forEach(this.items, (value, key) => {
-                count++;
-                list = `<div class="vr vr_x5_inverse">
-                            <ul>
-                                <li><span class="rarity rarity_${value.Rarity}"></span> ${key} x${value.Id.length}</li>
-                                <li class="u-small u-color-dim">${value.Description}</li>
-                            </ul>
-                            <input id="" type="text" name="" class="input js-actionView-items-btnTarget" data-item-id="${value.Id[0]}" style="width: 60px;" ${this.controller.disabled}>
-                            <button type="button" class="js-actionView-items-btn" data-item-id="${value.Id[0]}" data-item-name="${key}" ${this.controller.disabled}>Use</button>
-                        </div>
-                        ${list}`;
+        this.count = 0;
+        _.forEach(ITEM_TYPE, (value, key) => {
+            const itemsOfType = _.pick(this.items, value);
+            this.items = _.omit(this.items, value);
+            if (itemsOfType) { list += this.getList(itemsOfType, key); }
+        });
+        if (this.items) { list += this.getList(this.items, 'UNCATEGORIZED'); }
+        this.$itemList.html(list);
+        this.$itemCount.text(this.count);
+        return this;
+    }
 
-            });
-            this.$itemList.html(list);
-            this.$itemCount.text(count);
-        }
+    getList(items, title) {
+        let list = '';
+        list += `<div class="vr vr_x5_inverse"><h3 class="hdg hdg_3">-${title}-</h3>`;
+        _.forEach(items, (value, key) => {
+            this.count++;
+            let urlName = key.replace(/'/g, "");
+            urlName.replace(/ /g, "-").toLowerCase();
+            //<img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" />
+            list += `<ul class="vr vr_x2_inverse">
+                        <li><span class="rarity rarity_${value.Rarity}"></span> ${key} x${value.Id.length}</li>
+                        <li class="u-small u-color-dim">${value.Description}</li>
+                    </ul>
+                    <input id="" type="text" name="" class="input js-actionView-items-btnTarget" data-item-id="${value.Id[0]}" style="width: 60px;" ${this.controller.disabled}>
+                    <button type="button" class="js-actionView-items-btn" data-item-id="${value.Id[0]}" data-item-name="${key}" ${this.controller.disabled}>Use</button>`;
+        });
+        list += `</div>`;
+        return list;
     }
 
     listBadges() {
@@ -255,10 +270,11 @@ export default class ActionView {
             this.$badgeList.html(list);
             this.$badgeCount.text(count)
         }
+        return this;
     }
 
     setDelay() {
         this.clickTime = new Date();
-
+        return this;
     }
 }

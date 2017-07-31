@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import 'jquery.cookie';
-import { CONFIG, FIREBASE_CONFIG, FIREBASE_CONFIG_V2 } from '../config';
+import { CONFIG, FIREBASE_CONFIG } from '../config';
 import firebase from 'firebase';
 
 /**
@@ -18,7 +18,7 @@ export default class ItemsModel {
         this.items = {};
         this.badges = {};
 
-        firebase.initializeApp(FIREBASE_CONFIG_V2);
+        firebase.initializeApp(FIREBASE_CONFIG);
         this._firebase = firebase.database();
 
         this.init();
@@ -58,9 +58,12 @@ export default class ItemsModel {
     }
 
     handleResponse(response, id) {
-        console.log(response);
+        _.forEach(response.Messages, (o) => {
+            console.log(o);
+        });
         if (response.Item) {
             this.addItem(response.Item);
+            console.log(response.Item);
         }
         if (response.TargetName) {
             this.removeItem(id);
@@ -81,18 +84,18 @@ export default class ItemsModel {
             this.controller.postURL = this.controller.defaultPostURL;
             this.controller.itemId = '';
         }
+        if (response.Messages && !this.controller.userName) {
+            const location = response.Messages[0].indexOf(' ');
+            this.controller.userName = response.Messages[0].substr(0, location);
+            this.controller.updateUser();
+        }
         this.response = response;
         return this;
     }
 
     addItem(item) {
-        console.log(item);
-        console.log(item.Name);
-        console.log(this.items[item.Name]);
-        console.log('-------');
         if (this.items[item.Name]) {
             this.items[item.Name].Id.push(item.Id);
-            //this._firebase.ref().child(item.Name).update(this.items[item.Name].Id);
         } else {
             this.items[item.Name] = {
                 Id: [item.Id],
@@ -101,7 +104,6 @@ export default class ItemsModel {
             };
         }
         this._firebase.ref().child(item.Name).update(this.items[item.Name]);
-        console.log(`Item Added: ${item.Name}`);
         this.controller.updateView();
         return this;
     }
@@ -113,7 +115,13 @@ export default class ItemsModel {
             });
             if (location > -1) {
                 this.items[key].Id.splice(location, 1);
-                this._firebase.ref().child(key).update(this.items[key]);
+                if (this.items[key].Id.length) {
+                    this._firebase.ref().child(key).update(this.items[key]);
+                } else {
+                    delete this.items[key];
+                    this._firebase.ref().child(key).set(null);
+                }
+
             }
         });
         this.controller.updateView();
@@ -128,7 +136,7 @@ export default class ItemsModel {
         const ref = this._firebase.ref();
         ref.once("value", (snapshot) => {
             this.items = snapshot.val();
-            this.controller.updateView();
+            this.controller.createView();
             return this;
         }, (error) => {
             console.log("Firebase Get Error: " + error.code);

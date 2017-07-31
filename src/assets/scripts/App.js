@@ -24,7 +24,6 @@ export default class App {
      */
     init() {
         this._controller = new Controller($('.js-app'));
-        this._reindex = new Reindex($('.js-reindex'));
     }
 
 }

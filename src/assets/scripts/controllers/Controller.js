@@ -24,6 +24,7 @@ export default class Controller {
         this.defaultPostURL = `${CONFIG.URL_BASE}${CONFIG.URL_POINTS}`;
         this.postURL = this.defaultPostURL;
         this.itemId = '';
+        this.userName = '';
 
         this.init();
     }
@@ -48,7 +49,6 @@ export default class Controller {
      */
     createChildren() {
         this.model = new ItemsModel(this);
-        this.view = new ActionView(this);
 
         if (this.$element.data('loop') === false) {
             console.log('loop disabled');
@@ -110,6 +110,11 @@ export default class Controller {
         return this;
     }
 
+    createView() {
+        this.view = new ActionView(this);
+        this.updateView();
+    }
+
     post() {
         const request = this.model.postData(this.postURL, this.itemId);
 
@@ -157,5 +162,10 @@ export default class Controller {
             this.updateView();
             return this;
         }, 60 * 1000); //wait 60 seconds
+    }
+
+    updateUser() {
+        document.title = `${CONFIG.PAGE_TITLE} | ${this.userName}`
+        return this;
     }
 }
