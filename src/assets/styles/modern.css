@@ -18,6 +18,7 @@
 @import "content/_hr";
 @import "content/_icon";
 @import "content/_link";
+@import "content/_toggleBtn";
 
 /* Landmarks */
 @import "landmarks/_linkSkip";
@@ -33,6 +34,7 @@
 @import "layout/_vr";
 
 /* Modules */
+@import "modules/_console";
 @import "modules/_rarity";
 @import "modules/_shieldBox";
 

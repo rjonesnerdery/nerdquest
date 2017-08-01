@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import Controller from './controllers/Controller';
-import Reindex from './views/Reindex';
 
 /**
  * Application setup

@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import _ from 'lodash';
+import moment from 'moment';
 import { CONFIG } from '../config';
 import { ITEM_TYPE } from '../data/ItemType';
 
@@ -14,6 +15,9 @@ const SELECTORS = {
     ITEM_BTN: '.js-actionView-items-btn',
     ITEM_BTN_TARGET: '.js-actionView-items-btnTarget',
     ITEM_COUNT: '.js-actionView-itemCount',
+    AUTO_BTN: '.js-actionView-auto',
+    AUTO_TARGET: '.js-actionView-baseTarget',
+    CONSOLE: '.js-actionView-console',
 };
 
 /**
@@ -61,6 +65,8 @@ export default class ActionView {
      */
     setupHandlers() {
         this.handleClick = this.onClick.bind(this);
+        this.handleAutoBtnClick = this.onAutoBtnClick.bind(this);
+        this.handleAutoTargetInput = this.onAutoTargetInput.bind(this);
 
         return this;
     }
@@ -80,6 +86,9 @@ export default class ActionView {
         this.$itemCount = this.$view.find(SELECTORS.ITEM_COUNT);
         this.$badgeList = this.$view.find(SELECTORS.BADGE_LIST);
         this.$badgeCount = this.$view.find(SELECTORS.BADGE_COUNT);
+        this.$autoBtn = this.$view.find(SELECTORS.AUTO_BTN);
+        this.$autoTargetInput = this.$view.find(SELECTORS.AUTO_TARGET);
+        this.$console = this.$view.find(SELECTORS.CONSOLE);
 
         return this;
     }
@@ -131,6 +140,15 @@ export default class ActionView {
             this.$itemBtn[i].addEventListener('click', this.handleClick);
         }
 
+        for (let i = 0; i < this.$autoBtn.length; i++) {
+            this.$autoBtn[i].addEventListener('click', this.handleAutoBtnClick);
+            if (this.controller.auto[$(this.$autoBtn[i]).data('autoType')]) { $(this.$autoBtn[i]).addClass('active'); };
+        }
+
+        for (let i = 0; i < this.$autoTargetInput.length; i++) {
+            this.$autoTargetInput[i].addEventListener('input', this.handleAutoTargetInput);
+        }
+
         return this;
     }
 
@@ -149,6 +167,14 @@ export default class ActionView {
 
         for (let i = 0; i < this.$itemBtn.length; i++) {
             this.$itemBtn[i].removeEventListener('click', this.handleClick);
+        }
+
+        for (let i = 0; i < this.$autoBtn.length; i++) {
+            this.$autoBtn[i].removeEventListener('click', this.handleAutoBtnClick);
+        }
+
+        for (let i = 0; i < this.$autoTargetInput.length; i++) {
+            this.$autoTargetInput[i].removeEventListener('input', this.handleAutoTargetInput);
         }
 
         this.isEnabled = false;
@@ -170,12 +196,6 @@ export default class ActionView {
         return this;
     }
 
-    /**
-     * Handles click event
-     *
-     * @param event
-     * @returns {ActionView}
-     */
     onClick(event) {
         const $target = $(event.currentTarget);
         const id = $target.data('itemId');
@@ -187,8 +207,6 @@ export default class ActionView {
         } else {
             this.controller.useItem($target.data('itemId'));
         }
-
-        console.log(`You used ${$target.data('itemName')} ${itemTarget} :: ${new Date()}`);
 
         this.render();
 
@@ -251,7 +269,7 @@ export default class ActionView {
                         <li class="u-small u-color-dim">${value.Description}</li>
                     </ul>
                     <input id="" type="text" name="" class="input js-actionView-items-btnTarget" data-item-id="${value.Id[0]}" style="width: 60px;" ${this.controller.disabled}>
-                    <button type="button" class="js-actionView-items-btn" data-item-id="${value.Id[0]}" data-item-name="${key}" ${this.controller.disabled}>Use</button>`;
+                    <button type="button" class="toggleBtn js-actionView-items-btn" data-item-id="${value.Id[0]}" data-item-name="${key}" ${this.controller.disabled}>Use</button>`;
         });
         list += `</div>`;
         return list;
@@ -275,6 +293,35 @@ export default class ActionView {
 
     setDelay() {
         this.clickTime = new Date();
+        return this;
+    }
+
+    onAutoBtnClick(event) {
+        const $target = $(event.currentTarget);
+        const type = $target.data('autoType');
+
+        this.controller.auto[type] = !this.controller.auto[type];
+        $target.toggleClass('active');
+
+        return this;
+    }
+
+    onAutoTargetInput() {
+        const $target = $(event.currentTarget);
+        const $attackBtn = this.$view.find(`${SELECTORS.AUTO_BTN}[data-auto-type="attack"]`);
+        $attackBtn.prop('disabled', !$target.val());
+        this.controller.baseTarget = $target.val();
+
+        if (!$target.val() && this.controller.auto.attack) {
+            this.controller.auto.attack = false;
+            $attackBtn.toggleClass('active');
+        }
+
+        return this;
+    }
+
+    logToConsole(message) {
+        this.$console.html(`<div><span class="u-tiny u-color-dim">${moment().format('YYYY/MM/DD h:mm:ss a')}:</span> ${message}</div>${this.$console.html()}`)
         return this;
     }
 }

@@ -11,8 +11,16 @@ export const CONFIG = {
     TARGET: '?target=',
     PAGE_TITLE: 'NQ',
     API_KEY: '', // YOUR UNIQUE API KEY
-    REFRESH_SPEED: 1000
+    REFRESH_SPEED: 1005,
+    LEVEL_NAME: '', //Fill in spaces with %20
+    ABILITY_NAME: '', //Fill in spaces with %20
 };
 
 export const FIREBASE_CONFIG = {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
 };

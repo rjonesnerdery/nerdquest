@@ -7,24 +7,29 @@
 }
 
 .hdg_1 {
-    font-size: 64px;
+    font-size: 40px;
     color: #0f7a6b;
+    @media (--BP_XS) { font-size: 64px; }
 }
 
 .hdg_2 {
-    font-size: 26px;
+    font-size: 22px;
+    @media (--BP_XS) { font-size: 26px; }
 }
 
 .hdg_3 {
-    font-size: 21px;
+    font-size: 18px;
+    @media (--BP_XS) { font-size: 21px; }
 }
 
 .hdg_4 {
-    font-size: 18px;
+    font-size: 16px;
+    @media (--BP_XS) { font-size: 18px; }
 }
 
 .mix-hdg_wild {
     font-size: 52px;
     line-height: 1;
     color: rgba(221, 52, 9, 1);
+    @media (--BP_XS) { font-size: 52px; }
 }

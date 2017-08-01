@@ -11,8 +11,14 @@ body {
     font-size: var(--FONT_BASE_SIZE);
     line-height: 1;
     background-color: #1e1e1e;
-    background: url('../media/images/nerdquest-bg.png') top center no-repeat;
+    background-image: url('../media/images/nerdquest-bg.png');
+    background-position: top center;
+    background-repeat: repeat-x;
     background-size: cover;
     background-attachment: fixed;
     color: white;
+
+    @media (--BP_M) {
+        background-size: contain;
+    }
 }

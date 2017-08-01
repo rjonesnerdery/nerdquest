@@ -1,0 +1,43 @@
+.toggleBtn {
+    border: 3px solid #0c3e3d;
+    background-color: #0f7a6b;
+    color: white;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor: pointer;
+    transition: all 250ms ease;
+}
+
+.toggleBtn.active {
+    border: 3px solid rgba(221, 52, 9, 1);
+    background-color: #623031;
+}
+
+/* ---- States ---- */
+.toggleBtn:hover {
+    background-color: #0c3e3d;
+}
+
+.toggleBtn.active:hover {
+    background-color: rgba(221, 52, 9, 1);
+}
+
+.toggleBtn:disabled {
+    border: 3px solid rgb(59, 59, 59);
+    background-color: rgb(81, 81, 81);
+    color: rgba(255,255,255,0.6);
+    cursor: default;
+}
+
+/* ---- Mixins ---- */
+.mix-toggleBtn_fillMobile {
+    width: 100%;
+
+    @media (--BP_XS) { width: auto; }
+}
+
+.mix-toggleBtn_fillMobile + .mix-toggleBtn_fillMobile {
+    margin-top: 10px;
+    @media (--BP_XS) { margin-top: 0; }
+}

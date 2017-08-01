@@ -2,6 +2,7 @@ export const ITEM_TYPE = {
     BUFFS: [
         "UUDDLRLRBA",
         "Right-hand Man",
+        "Left-hand Man",
         "Pizza",
         "Da Da Da Da Daaa Da DAA da da",
         "Buffalo",
@@ -13,10 +14,7 @@ export const ITEM_TYPE = {
         "Strong Magnets",
         "Star",
         "Space Suit",
-        "Mushroom",
-        "Left-hand Man",
         "Gold Ring",
-        "Cardboard Box",
     ],
     GAINERS: [
         "Nitrous Oxide",
@@ -40,6 +38,9 @@ export const ITEM_TYPE = {
         "Box of Bees",
         "Bowling Ball",
         "Banana Peel",
+        "NPC",
+        "Samurai Sword",
+        "Cardboard Box",
     ],
     SPECIAL: [
         "Treasure Chest",
@@ -51,13 +52,13 @@ export const ITEM_TYPE = {
     ]
 };
 
-/* --- Unknown  ---
+/* --- Unknown/Uncategorized  ---
+ Mushroom
  Stab Rabbit
  Space Hamster
  Samurai Sword
  Princess
  Pandora's Box
- NPC
  Monster Trap
  Monarch's Crown
  Leisure Suit

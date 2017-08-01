@@ -2,6 +2,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import 'jquery.cookie';
 import { CONFIG, FIREBASE_CONFIG } from '../config';
+import { ITEM_TYPE } from '../data/ItemType';
 import firebase from 'firebase';
 
 /**
@@ -47,7 +48,7 @@ export default class ItemsModel {
             this.handleResponse(response, id);
             deferred.resolve(response);
         }).fail((response) => {
-            console.log(`Error: ${response}`);
+            this.controller.logMessage(`Error: ${response}`);
             if (id) { this.removeItem(id); }
             this.controller.postURL = this.controller.defaultPostURL;
             this.controller.itemId = '';
@@ -59,7 +60,7 @@ export default class ItemsModel {
 
     handleResponse(response, id) {
         _.forEach(response.Messages, (o) => {
-            console.log(o);
+            this.controller.logMessage(o);
         });
         if (response.Item) {
             this.addItem(response.Item);
@@ -139,7 +140,7 @@ export default class ItemsModel {
             this.controller.createView();
             return this;
         }, (error) => {
-            console.log("Firebase Get Error: " + error.code);
+            this.controller.logMessage("Firebase Get Error: " + error.code);
         });
     }
 
@@ -149,5 +150,31 @@ export default class ItemsModel {
             i++;
         });
         return i;
+    }
+
+    pickItem() {
+        let target= '';
+        let itemSubset = {};
+        let attacks = {};
+        let buffs = {};
+        if (this.controller.auto.protect && _.intersection(ITEM_TYPE.PROTECTION, this.effects).length === 0) {
+            itemSubset = _.pick(this.items, ITEM_TYPE.PROTECTION);
+        } else if (this.controller.auto.buff && _.intersection(ITEM_TYPE.GAINERS, this.effects).length === 0) {
+            itemSubset = _.pick(this.items, ITEM_TYPE.GAINERS);
+        } else {
+            buffs = this.controller.auto.buff ? _.pick(this.items, ITEM_TYPE.BUFFS) : {};
+            attacks = this.controller.auto.attack ? _.pick(this.items, ITEM_TYPE.ATTACKS) : {};
+            _.assign(itemSubset, buffs, attacks);
+        }
+        if (Object.keys(itemSubset).length) {
+            const rand = Math.floor(Math.random() * (Object.keys(itemSubset).length));
+            const chosenItemName = Object.keys(itemSubset)[rand];
+            const chosenItem = itemSubset[chosenItemName];
+            if (_.includes(Object.keys(attacks), chosenItemName) && this.controller.baseTarget) {
+                target = this.controller.baseTarget;
+            }
+            this.controller.useItem(chosenItem.Id[0], target);
+        }
+        return this;
     }
 }

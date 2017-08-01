@@ -1,8 +1,19 @@
 <div class="js-actionView">
-    <div class="vr vr_x3">
+    <div class="vr vr_x4">
         <h1 class="hdg hdg_1 u-textShadow u-center">NERDQUEST</h1>
         <div class="shieldBox u-center">
             <div class="hdg mix-hdg_wild u-textShadow2 js-actionView-points"></div>
+        </div>
+    </div>
+    <div class="vr vr_x4 u-center">
+        <div class="">
+            <button type="button" class="toggleBtn mix-toggleBtn_fillMobile js-actionView-auto" data-auto-type="post">Auto Post</button>
+            <button type="button" class="toggleBtn mix-toggleBtn_fillMobile js-actionView-auto" data-auto-type="buff">Auto Buff</button>
+            <button type="button" class="toggleBtn mix-toggleBtn_fillMobile js-actionView-auto" data-auto-type="protect">Auto Protect</button>
+            <button type="button" class="toggleBtn mix-toggleBtn_fillMobile js-actionView-auto" data-auto-type="attack" disabled>Auto Attack</button>
+        </div>
+        <div class="vr vr_x2_inverse u-center">
+            <input id="" type="text" name="" class="input u-center js-actionView-baseTarget" data-item-id="${value.Id[0]}" style="width: 105px;" placeholder="Auto-attack target">
         </div>
     </div>
     <div class="vr vr_x7">
@@ -16,5 +27,8 @@
     <div class="vr vr_x7">
         <h2 class="hdg hdg_2">Items <span class="u-normal u-valign">(<span class="js-actionView-itemCount"></span> types)</span></h2>
         <div class="js-actionView-items"></div>
+    </div>
+    <div class="console js-actionView-console">
+        <div>^ Log</div>
     </div>
 </div>

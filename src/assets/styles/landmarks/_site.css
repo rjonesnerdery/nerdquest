@@ -9,6 +9,8 @@
 
 .site-hd { }
 
-.site-bd { }
+.site-bd {
+    margin-bottom: 125px;
+}
 
 .site-ft { }

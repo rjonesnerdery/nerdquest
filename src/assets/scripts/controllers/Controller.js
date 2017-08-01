@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import _ from 'lodash';
 import ItemsModel from '../models/ItemsModel';
 import ActionView from '../views/ActionView';
 import { CONFIG } from '../config';
@@ -19,12 +20,19 @@ export default class Controller {
 
         this.$element = $element;
         this.isEnabled = false;
-        this.isLoop = true;
         this.disabled = '';
         this.defaultPostURL = `${CONFIG.URL_BASE}${CONFIG.URL_POINTS}`;
         this.postURL = this.defaultPostURL;
         this.itemId = '';
         this.userName = '';
+        this.baseTarget = '';
+
+        this.auto = {
+            post: true,
+            buff: false,
+            protect: false,
+            attack: false,
+        };
 
         this.init();
     }
@@ -52,7 +60,7 @@ export default class Controller {
 
         if (this.$element.data('loop') === false) {
             console.log('loop disabled');
-            this.isLoop = false;
+            this.auto.post = false;
         }
 
         return this;
@@ -73,7 +81,7 @@ export default class Controller {
 
         this.isEnabled = true;
 
-        if (this.isLoop) { this.postLoop(); }
+        if (this.isAuto()) { this.postLoop(); }
 
         return this;
     }
@@ -119,20 +127,21 @@ export default class Controller {
         const request = this.model.postData(this.postURL, this.itemId);
 
         request.then(() => {
-            if (this.isLoop) {
-                this.postLoop();
-            } else {
-                return this;
-            }
+            this.postLoop();
         });
     }
 
     postLoop() {
-        if (this.isEnabled) {
-            setTimeout(() =>{
+        setTimeout(() =>{
+            if (this.isEnabled && this.isAuto()) {
+                if (this.disabled !== 'disabled') {
+                    this.model.pickItem();
+                }
                 this.post();
-            }, CONFIG.REFRESH_SPEED);
-        }
+            } else {
+                this.postLoop();
+            }
+        }, CONFIG.REFRESH_SPEED);
     }
 
     updateView() {
@@ -152,7 +161,7 @@ export default class Controller {
         console.log(url);
         this.postURL = url;
         this.itemId = id;
-        if (!this.isLoop) { this.post(); }
+        if (!this.isAuto()) { this.post(); }
         return this;
     }
 
@@ -166,6 +175,21 @@ export default class Controller {
 
     updateUser() {
         document.title = `${CONFIG.PAGE_TITLE} | ${this.userName}`
+        return this;
+    }
+
+    isAuto() {
+        return _.includes(this.auto, true);
+    }
+
+    logMessage(message) {
+        console.log(message);
+        message = message.replace(/</g, '');
+        message = message.replace(/>/g, '');
+        if (!message.includes('Total points')) {
+            this.view.logToConsole(message);
+        }
+
         return this;
     }
 }
