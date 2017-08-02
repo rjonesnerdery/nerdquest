@@ -172,8 +172,8 @@ export default class Controller {
         }, 60 * 1000); //wait 60 seconds
     }
 
-    updateUser() {
-        document.title = `${CONFIG.PAGE_TITLE} | ${this.userName}`
+    updateTitle(points) {
+        document.title = `${CONFIG.PAGE_TITLE} | ${this.userName} ${points}`;
         return this;
     }
 

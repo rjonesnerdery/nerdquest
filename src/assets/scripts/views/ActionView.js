@@ -223,6 +223,7 @@ export default class ActionView {
 
     updatePoints(points) {
         this.$points.text(points);
+        this.controller.updateTitle(points);
         return this;
     }
 

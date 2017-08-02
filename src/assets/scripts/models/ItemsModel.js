@@ -88,7 +88,7 @@ export default class ItemsModel {
         if (response.Messages && !this.controller.userName) {
             const location = response.Messages[0].indexOf(' ');
             this.controller.userName = response.Messages[0].substr(0, location);
-            this.controller.updateUser();
+            this.controller.updateTitle();
         }
         this.response = response;
         return this;
