@@ -114,13 +114,12 @@ export default class Controller {
      */
     destroy() {
         this.disable();
-
         return this;
     }
 
     createView() {
         this.view = new ActionView(this);
-        this.updateView();
+        return this;
     }
 
     post() {

@@ -26,7 +26,7 @@ export default class ItemsModel {
     }
 
     init() {
-        this.loadData();
+        this.loadData('init');
 
         return this;
     }
@@ -125,7 +125,7 @@ export default class ItemsModel {
 
             }
         });
-        this.controller.updateView();
+        this.loadData();
         return this;
     }
 
@@ -133,14 +133,21 @@ export default class ItemsModel {
         return this;
     }
 
-    loadData() {
+    loadData(condition) {
         const ref = this._firebase.ref();
-        ref.once("value", (snapshot) => {
+        ref.once('value', (snapshot) => {
             this.items = snapshot.val();
-            this.controller.createView();
             return this;
         }, (error) => {
             this.controller.logMessage("Firebase Get Error: " + error.code);
+        })
+        .then(() => {
+            if (condition === 'init') {
+                this.controller.createView();
+            } else {
+                this.controller.updateView();
+            }
+            return this;
         });
     }
 
