@@ -26,7 +26,7 @@ export const ITEM_TYPE = {
     ATTACKS: [
         "Unholy Water",
         "Stray Croquet Mallet",
-        "Space Towel",
+
         "Slug Shooter",
         "Silencer",
         "Rocket Launcher",
@@ -50,6 +50,7 @@ export const ITEM_TYPE = {
         "Morph Ball",
         "Dropbear",
         "Co-president's Coin",
+        "Space Towel",
     ]
 };
 
