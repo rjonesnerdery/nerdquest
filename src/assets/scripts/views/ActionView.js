@@ -236,7 +236,7 @@ export default class ActionView {
                 urlName = this.getUrlName(value);
                 count++;
                 list += `<span class="u-color-dim">
-                            <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value}" />
+                            <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value}" title="${value}" />
                             <!--${value}-->
                         </span>`;
             });
@@ -301,7 +301,7 @@ export default class ActionView {
                 urlName = this.getUrlName(value.BadgeName);
                 count++;
                 list += `<span class="u-color-dim">
-                            <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value.BadgeName}" />
+                            <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value.BadgeName}" title="${value.BadgeName}" />
                             <!--${value.BadgeName}-->
                         </span>`;
             });
