@@ -237,7 +237,7 @@ export default class ActionView {
                 count++;
                 list += `<li class="u-color-dim">
                             <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value}" />
-                            ${value}
+                            <!--${value}-->
                         </li>`;
             });
             list += `</ul>`;
@@ -303,7 +303,7 @@ export default class ActionView {
                 count++;
                 list += `<li class="u-color-dim">
                             <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value.BadgeName}" />
-                            ${value.BadgeName}
+                            <!--${value.BadgeName}-->
                         </li>`;
             });
             list += `</ul>`;
