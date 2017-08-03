@@ -228,19 +228,18 @@ export default class ActionView {
     }
 
     listEffects() {
-        let list = '<ul>';
+        let list = '';
         let count = 0;
         let urlName = '';
         if (this.effects) {
             _.forEach(this.effects, (value, key) => {
                 urlName = this.getUrlName(value);
                 count++;
-                list += `<li class="u-color-dim">
+                list += `<span class="u-color-dim">
                             <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value}" />
                             <!--${value}-->
-                        </li>`;
+                        </span>`;
             });
-            list += `</ul>`;
 
             this.$effectList.html(list);
             this.$effectCount.text(count);
@@ -294,19 +293,18 @@ export default class ActionView {
     }
 
     listBadges() {
-        let list = '<ul>';
+        let list = '';
         let count = 0;
         let urlName = '';
         if (this.badges) {
             _.forEach(this.badges, (value, key) => {
                 urlName = this.getUrlName(value.BadgeName);
                 count++;
-                list += `<li class="u-color-dim">
+                list += `<span class="u-color-dim">
                             <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value.BadgeName}" />
                             <!--${value.BadgeName}-->
-                        </li>`;
+                        </span>`;
             });
-            list += `</ul>`;
 
             this.$badgeList.html(list);
             this.$badgeCount.text(count)
