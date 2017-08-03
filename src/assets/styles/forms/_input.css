@@ -1,6 +1,7 @@
 
 
 .input {
+    box-sizing: border-box;
     padding: 3px;
     border: 2px solid #0f7a6b;
 }
@@ -12,4 +13,8 @@
 
 .input::placeholder {
     text-align: center;
+}
+
+.mix-input_fill {
+    width: 100%;
 }

@@ -230,10 +230,15 @@ export default class ActionView {
     listEffects() {
         let list = '<ul>';
         let count = 0;
+        let urlName = '';
         if (this.effects) {
             _.forEach(this.effects, (value, key) => {
+                urlName = this.getUrlName(value);
                 count++;
-                list += `<li class="u-color-dim">${value}</li>`;
+                list += `<li class="u-color-dim">
+                            <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value}" />
+                            ${value}
+                        </li>`;
             });
             list += `</ul>`;
 
@@ -259,30 +264,47 @@ export default class ActionView {
 
     getList(items, title) {
         let list = '';
-        list += `<div class="vr vr_x5_inverse"><h3 class="hdg hdg_3">-${title}-</h3>`;
+        let urlName = '';
+        list += `<div class="vr vr_x8">
+                    <h3 class="hdg hdg_3 u-center" style="padding-bottom: 20px;">-${title}-</h3>
+                    <div class="blocks blocks_1up blocks_2upXS blocks_3upS blocks_5upM mix-blocks_space">`;
         _.forEach(items, (value, key) => {
             this.count++;
-            let urlName = key.replace(/'/g, "");
-            urlName.replace(/ /g, "-").toLowerCase();
+            urlName = this.getUrlName(key);
             //<img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" />
-            list += `<ul class="vr vr_x2_inverse">
-                        <li><span class="rarity rarity_${value.Rarity}"></span> ${key} x${value.Id.length}</li>
-                        <li class="u-small u-color-dim">${value.Description}</li>
-                    </ul>
-                    <input id="" type="text" name="" class="input js-actionView-items-btnTarget" data-item-id="${value.Id[0]}" style="width: 60px;" ${this.controller.disabled}>
-                    <button type="button" class="toggleBtn js-actionView-items-btn" data-item-id="${value.Id[0]}" data-item-name="${key}" ${this.controller.disabled}>Use</button>`;
+            list += `    <div class="vr vr_x2_inverse">
+                            <span style="width: 60px !important; display: inline-block; position: relative">
+                                <button type="button" class="toggleBtn mix-toggleBtn_fill mix-toggleBtn_overlay js-actionView-items-btn" data-item-id="${value.Id[0]}" data-item-name="${key}" ${this.controller.disabled}>
+                                    <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" />
+                                </button>
+                                <input id="" type="text" name="" class="input mix-input_fill js-actionView-items-btnTarget" data-item-id="${value.Id[0]}" ${this.controller.disabled} placeholder="Target">
+                               
+                            </span>
+                           <span style="width: calc(100% - 70px); vertical-align: top; display: inline-block;">
+                                <div><span class="rarity rarity_${value.Rarity}"></span> ${key} x${value.Id.length}</div>
+                                <div class="u-small u-color-dim">${value.Description}</div>
+                            </span>
+                            
+                            <!--<li class="u-small u-color-dim">${value.Description}</li>
+                            <span class="rarity rarity_${value.Rarity}"></span> ${key} x${value.Id.length}-->
+                        </div>`;
         });
-        list += `</div>`;
+        list += `</div></div>`;
         return list;
     }
 
     listBadges() {
         let list = '<ul>';
         let count = 0;
+        let urlName = '';
         if (this.badges) {
             _.forEach(this.badges, (value, key) => {
+                urlName = this.getUrlName(value.BadgeName);
                 count++;
-                list += `<li class="u-color-dim">${value.BadgeName}</li>`;
+                list += `<li class="u-color-dim">
+                            <img src="${CONFIG.URL}${CONFIG.IMG_PATH}/${urlName}.svg" class="imgSvg" alt="${value.BadgeName}" />
+                            ${value.BadgeName}
+                        </li>`;
             });
             list += `</ul>`;
 
@@ -324,5 +346,14 @@ export default class ActionView {
     logToConsole(message) {
         this.$console.html(`<div><span class="u-tiny u-color-dim">${moment().format('YYYY/MM/DD h:mm:ss a')}:</span> ${message}</div>${this.$console.html()}`)
         return this;
+    }
+
+    getUrlName(name) {
+        let urlName = name.replace(/[']/g, '');
+        urlName = urlName.replace(/[“”‘’]/g,'');
+        urlName = urlName.replace(/[\u2018\u2019]/g, '');
+        urlName = urlName.replace(/[\u201C\u201D]/g, '');
+        urlName = urlName.replace(/:/g, '');
+        return urlName.replace(/ /g, '-').toLowerCase();
     }
 }

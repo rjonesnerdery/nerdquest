@@ -10,7 +10,6 @@
     display: flex; /* Using Flex for equal height containers */
     flex-wrap: wrap; /* Children need to wrap */
     align-items: stretch; /* For equal height */
-    font-size: 0; /* Horiontal gap fix for inline-block fallback */
 }
 
 .blocks > * {
@@ -18,7 +17,6 @@
     display: inline-block; /* IE9 fallback */
     vertical-align: top;
     width: 100%;
-    font-size: calc(16 / var(--FONT_BASE_SIZE) * 1rem); /* Converts to rem (font size/base font size), Resetting font-size for horizontal gap fix */
 }
 
 /* Loop through layout options
@@ -26,6 +24,14 @@ Uses simple variables (postcss-simple-vars) and loops (postcss-for) from PostCSS
 @for $i from 1 to 6 {
     .blocks_$(i)up > * {
         width: calc(1 / $i * 100%);
+    }
+}
+
+@media (--BP_XS) {
+    @for $i from 1 to 6 {
+        .blocks_$(i)upXS > * {
+            width: calc(1 / $i * 100%);
+        }
     }
 }
 
