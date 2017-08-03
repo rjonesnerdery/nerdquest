@@ -8,6 +8,7 @@ export const ITEM_TYPE = {
         "Buffalo",
         "Bo Jackson",
         "Pink Plushy",
+        "Monster Trap",
     ],
     PROTECTION: [
         "Trash Panda",
@@ -17,10 +18,10 @@ export const ITEM_TYPE = {
         "Gold Ring",
     ],
     GAINERS: [
-        "Nitrous Oxide",
         "All-Terrain Vehicle",
         "7777",
         "Bentley the Dog",
+        "Flying Pig",
     ],
     ATTACKS: [
         "Unholy Water",
@@ -31,7 +32,6 @@ export const ITEM_TYPE = {
         "Rocket Launcher",
         "Plasma Grenade",
         "Great Balls of Fire",
-        "Foam Dart",
         "Fisticuffs",
         "Crowbar",
         "Chi Blast",
@@ -41,12 +41,13 @@ export const ITEM_TYPE = {
         "NPC",
         "Samurai Sword",
         "Cardboard Box",
+        "Nitrous Oxide",
     ],
     SPECIAL: [
+        "Foam Dart",
         "Treasure Chest",
         "Pony",
         "Morph Ball",
-        "Flying Pig",
         "Dropbear",
         "Co-president's Coin",
     ]
@@ -59,7 +60,6 @@ export const ITEM_TYPE = {
  Samurai Sword
  Princess
  Pandora's Box
- Monster Trap
  Monarch's Crown
  Leisure Suit
  Leeroy Jenkins
